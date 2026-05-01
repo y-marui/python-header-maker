@@ -54,4 +54,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: uv sync --frozen
-      - run: python -c "import project_name"
+      - run: uv run python -c "import header_maker"
