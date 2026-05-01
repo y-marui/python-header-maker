@@ -5,7 +5,7 @@ description = "GUI tool for creating note.com article header images"
 authors = [{ name = "Yukihiro Marui" }]
 requires-python = ">=3.11"
 dependencies = [
-    "pillow",
+    "pillow>=9.1",
 ]
 
 [project.scripts]
@@ -35,6 +35,10 @@ select = ["E", "F", "I", "UP"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
+
+[[tool.mypy.overrides]]
+module = "PIL.*"
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
