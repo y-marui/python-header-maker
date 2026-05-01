@@ -1,7 +1,14 @@
-.PHONY: install lint format type test all setup-charter update-charter
+.PHONY: build desktop install lint format type test all setup-charter update-charter
 
-install:
+build:
 	uv sync
+	uv run header-maker build
+	uv run header-maker install-app --force
+
+desktop:
+	uv run header-maker desktop --force
+
+install: build desktop
 
 lint:
 	uv run ruff check .

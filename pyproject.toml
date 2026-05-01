@@ -1,9 +1,15 @@
 [project]
-name = "project_name"
+name = "header-maker"
 version = "0.1.0"
-description = ""
-authors = [{ name = "Team" }]
+description = "GUI tool for creating note.com article header images"
+authors = [{ name = "Yukihiro Marui" }]
 requires-python = ">=3.11"
+dependencies = [
+    "pillow",
+]
+
+[project.scripts]
+header-maker = "header_maker.cli:main"
 
 [dependency-groups]
 dev = [
@@ -17,7 +23,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/project_name"]
+packages = ["src/header_maker"]
 
 [tool.ruff]
 line-length = 88
