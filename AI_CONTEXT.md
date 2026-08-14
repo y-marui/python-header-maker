@@ -5,7 +5,7 @@
 
 ---
 
-## 参照順序（AI 向け）
+## Reference Order
 
 AI はタスク開始時に以下の順で参照する:
 
@@ -235,6 +235,7 @@ CI（GitHub Actions）は push / PR のたびに `security` → `lint`（ruff ch
 | detect-private-key | SSH 秘密鍵検出 |
 | detect-dotenv | `.env` ファイルのコミットをブロック |
 | no-hardcoded-local-paths | ローカル絶対パスのハードコードをブロック |
+| check-markdown-heading-language | Markdown の H2〜H6 見出しの日本語使用をブロック |
 | check-added-large-files | 500 KB 超ファイルをブロック |
 | trailing-whitespace / end-of-file-fixer | 空白・改行の正規化 |
 | check-yaml / check-json / check-merge-conflict | 構文・競合チェック |
@@ -248,19 +249,12 @@ CI（GitHub Actions）は push / PR のたびに `security` → `lint`（ruff ch
 
 ## AI Tool Assignments
 
-| ツール | 担当範囲 |
-|---|---|
-| **Claude Code** | プロジェクト立ち上げ、大規模なコード変更、アーキテクチャ設計・リファクタリング提案 |
-| **GitHub Copilot** | バグ修正、細かな実装・コーディング補助、単体テスト作成 |
-| **Gemini CLI** | プライバシーポリシー作成・更新、ストア説明文、審査用ドキュメント、プロジェクト全体のドキュメント管理 |
+- **使用ツール**：Claude Code、Codex、GitHub Copilot、Gemini CLI
+- **標準担当の正本**：`docs/dev-charter/AI_COLLABORATION_RULES.md` の「AI Tool Responsibilities」と「Rules for Multi-AI Usage」
+- **プロジェクト固有の上書き**：なし
 
 **AI_CONTEXT.md の同期ルール:**
 - 憲章（`docs/dev-charter/`）を `git subtree pull` で更新した後、AI に差分を確認させて `AI_CONTEXT.md` を更新する
-
-**AI 並用時のルール:**
-- Claude Code 作業中は Copilot 提案を**参考程度**に（盲目的に受け入れない）
-- Copilot の提案がプロジェクト規約に反する場合は無視し、Claude Code でレビュー後に採用判断する
-- Gemini CLI は `GEMINI.md` 経由で `@AI_CONTEXT.md` の自動読み込みをサポート
 
 ---
 

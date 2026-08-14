@@ -69,6 +69,7 @@ pre-commit run --all-files  # verify
 | detect-private-key | SSH private key detection |
 | detect-dotenv | Block `.env` commits |
 | no-hardcoded-local-paths | Block hardcoded local paths |
+| check-markdown-heading-language | Block Japanese text in Markdown H2-H6 headings |
 | check-added-large-files | Block files > 500 KB |
 | trailing-whitespace / end-of-file-fixer | Whitespace normalization |
 | check-yaml / check-json / check-merge-conflict | Syntax and conflict checks |
