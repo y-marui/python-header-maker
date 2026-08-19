@@ -101,15 +101,16 @@ jobs:
   gate:
     name: Required Checks
     needs: [changes, security, lint, test, build]
-    if: always()
+    # A draft PR can't be merged regardless of check status, so there's no
+    # "stuck required check" risk in skipping this entirely on drafts (unlike
+    # skipping it for docs-only changes, where it must still report a real
+    # pass/fail). ready_for_review re-triggers a real run once the PR leaves
+    # draft.
+    if: always() && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
     steps:
       - name: Verify required jobs succeeded
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.draft }}" = "true" ]; then
-            echo "draft PR; nothing evaluated yet (re-runs on ready_for_review)"
-            exit 0
-          fi
           if [ "${{ needs.security.result }}" != "success" ]; then
             echo "::error::security did not succeed (got: ${{ needs.security.result }})"
             exit 1
