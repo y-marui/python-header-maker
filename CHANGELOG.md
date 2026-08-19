@@ -13,3 +13,5 @@
 
 ### Fixed
 - Non-English section headings in `AI_CONTEXT.md` and `docs/file-map.md`
+
+<!-- ci gate pilot test: docs-only commit -->
