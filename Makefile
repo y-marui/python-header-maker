@@ -1,4 +1,4 @@
-.PHONY: build desktop install lint format type test all setup-charter update-charter
+.PHONY: build desktop install lint format type test all update-charter
 
 build:
 	uv sync
@@ -23,12 +23,6 @@ test:
 	uv run pytest
 
 all: lint type test
-
-## dev-charter helpers
-setup-charter:
-	git remote add dev-charter https://github.com/y-marui/dev-charter
-	git fetch dev-charter
-	git subtree add --prefix=docs/dev-charter dev-charter main --squash
 
 update-charter:
 	curl -fsSL https://raw.githubusercontent.com/y-marui/dev-charter/main/scripts/install.sh | CHARTER_UPDATE_ONLY=1 bash
