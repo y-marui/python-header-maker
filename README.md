@@ -35,6 +35,14 @@ Launch `Note Header.app` from the Desktop or Applications, or drag image files d
 | `make test` | `pytest` |
 | `make all` | lint + type + test |
 
+### CLI
+
+The `header-maker` command supports `--version` / `-V` and `--install-completion` (enable shell completion for your current shell). Run `header-maker --help` for details.
+
+```sh
+uv run header-maker --install-completion
+```
+
 ## Requirements
 
 - macOS (Automator / osascript)

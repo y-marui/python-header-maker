@@ -35,6 +35,14 @@ make install
 | `make test` | `pytest` |
 | `make all` | lint + type + test |
 
+### CLI
+
+`header-maker` コマンドは `--version` / `-V`（バージョン表示）と `--install-completion`（現在のシェル向け補完の有効化）に対応しています。詳細は `header-maker --help` を参照してください。
+
+```sh
+uv run header-maker --install-completion
+```
+
 ## Requirements
 
 - macOS（Automator / osascript）
