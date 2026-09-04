@@ -1,13 +1,17 @@
-import argparse
 import plistlib
 import shutil
 import subprocess
+from importlib.metadata import version as _pkg_version
 from pathlib import Path
+
+import typer
 
 from .core import launch_gui
 
 APP_NAME = "Note Header.app"
 APP_INSTALL_DIR = Path("/Applications/Note Header Maker")
+
+app = typer.Typer(no_args_is_help=True, add_completion=True)
 
 
 def _shell_quote_for_applescript(path: str) -> str:
@@ -16,7 +20,7 @@ def _shell_quote_for_applescript(path: str) -> str:
     return shell_quoted.replace('"', '\\"')
 
 
-def build_app() -> None:
+def _build_app() -> None:
     build_dir = Path("build")
     build_dir.mkdir(exist_ok=True)
 
@@ -77,7 +81,7 @@ def _patch_info_plist(app_path: Path) -> None:
         plistlib.dump(plist, f)
 
 
-def install_app(force: bool = False) -> None:
+def _install_app(force: bool = False) -> None:
     src = Path("build") / APP_NAME
     if not src.exists():
         raise RuntimeError(f"'{src}' not found — run build first")
@@ -98,7 +102,7 @@ def install_app(force: bool = False) -> None:
     print("installed:", dst)
 
 
-def create_desktop_shortcut(force: bool = False) -> None:
+def _create_desktop_shortcut(force: bool = False) -> None:
     src = APP_INSTALL_DIR / APP_NAME
     if not src.exists():
         raise RuntimeError(f"'{src}' not found — run install-app first")
@@ -118,32 +122,61 @@ def create_desktop_shortcut(force: bool = False) -> None:
     print("shortcut created:", dst)
 
 
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(_pkg_version("header-maker"))
+        raise typer.Exit()
+
+
+@app.callback()
+def _main(
+    version: bool = typer.Option(
+        None,
+        "--version",
+        "-V",
+        callback=_version_callback,
+        is_eager=True,
+        help="Show the version and exit.",
+    ),
+) -> None:
+    """GUI tool for creating note.com article header images."""
+
+
+@app.command()
+def gui(
+    files: list[Path] = typer.Argument(
+        None, help="Image files to open (e.g. via drag & drop)."
+    ),
+) -> None:
+    """Launch the GUI."""
+    launch_gui([str(f) for f in files] if files else None)
+
+
+@app.command(name="build")
+def build() -> None:
+    """Build the Automator app bundle."""
+    _build_app()
+
+
+@app.command(name="install-app")
+def install_app(
+    force: bool = typer.Option(
+        False, "--force", help="Overwrite an existing installation."
+    ),
+) -> None:
+    """Install the built app to /Applications."""
+    _install_app(force)
+
+
+@app.command(name="desktop")
+def desktop(
+    force: bool = typer.Option(
+        False, "--force", help="Overwrite an existing shortcut."
+    ),
+) -> None:
+    """Create a Desktop shortcut to the installed app."""
+    _create_desktop_shortcut(force)
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    sub = parser.add_subparsers(dest="cmd")
-
-    sub.add_parser("gui")
-    sub.add_parser("build")
-
-    p_install = sub.add_parser("install-app")
-    p_install.add_argument("--force", action="store_true")
-
-    p_desktop = sub.add_parser("desktop")
-    p_desktop.add_argument("--force", action="store_true")
-
-    args, rest = parser.parse_known_args()
-
-    if args.cmd == "build":
-        build_app()
-
-    elif args.cmd == "install-app":
-        install_app(args.force)
-
-    elif args.cmd == "desktop":
-        create_desktop_shortcut(args.force)
-
-    elif args.cmd == "gui":
-        launch_gui(rest or None)
-
-    else:
-        parser.print_help()
+    app()
