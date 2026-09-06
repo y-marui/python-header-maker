@@ -30,13 +30,10 @@ uv + Claude Code + GitHub Copilot 前提の OSS テンプレート。
 
 **技術スタック:**
 
-| 項目 | バージョン |
-|------|-----------|
-| Python | ^3.11 |
-| uv | 最新安定版 |
-| pytest | ^8 |
-| ruff | ^0.3（linter / formatter, line-length=88, select: E/F/I/UP） |
-| mypy | ^1.8（strict モード） |
+バージョン管理・パッケージ管理・Lint/Format・型チェックの一般方針は
+[docs/dev-charter/topics/python/PYTHON_DEV_ENV.md](docs/dev-charter/topics/python/PYTHON_DEV_ENV.md)
+を参照（CLI を実装する場合は
+[docs/dev-charter/topics/python/PYTHON_CLI.md](docs/dev-charter/topics/python/PYTHON_CLI.md) も参照）。
 
 **主要ディレクトリ:**
 

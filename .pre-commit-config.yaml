@@ -186,7 +186,7 @@ repos:
         always_run: true
 
   # ----------------------------------------------------------------
-  # Python package management (topics/PYTHON_DEV_ENV.md)
+  # Python package management (topics/python/PYTHON_DEV_ENV.md)
   # (blocks requirements.txt / missing uv.lock when pyproject.toml exists)
   # ----------------------------------------------------------------
   - repo: local
