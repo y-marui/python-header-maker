@@ -11,6 +11,12 @@
 
 note.com 用記事ヘッダー画像（1280×670）を作成する GUI ツール。macOS アプリに画像をドラッグ&ドロップして、タイトル・テーマ・期間ラベルをクロップ位置を調整しながら合成できます。
 
+## Requirements
+
+- macOS（Automator / osascript）
+- Python 3.11 以上
+- [uv](https://github.com/astral-sh/uv)
+
 ## Setup
 
 ```sh
@@ -42,12 +48,6 @@ make install
 ```sh
 uv run header-maker --install-completion
 ```
-
-## Requirements
-
-- macOS（Automator / osascript）
-- Python 3.11 以上
-- [uv](https://github.com/astral-sh/uv)
 
 ## License
 

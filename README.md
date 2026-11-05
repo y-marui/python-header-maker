@@ -11,6 +11,12 @@
 
 GUI tool for creating note.com article header images (1280×670). Drag & drop images onto the macOS app to add titles, themes, and period labels with crop control.
 
+## Requirements
+
+- macOS (Automator / osascript)
+- Python 3.11+
+- [uv](https://github.com/astral-sh/uv)
+
 ## Setup
 
 ```sh
@@ -42,12 +48,6 @@ The `header-maker` command supports `--version` / `-V` and `--install-completion
 ```sh
 uv run header-maker --install-completion
 ```
-
-## Requirements
-
-- macOS (Automator / osascript)
-- Python 3.11+
-- [uv](https://github.com/astral-sh/uv)
 
 ## License
 
